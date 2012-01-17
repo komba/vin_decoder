@@ -6,9 +6,9 @@ Fuck everything and scrap websites to get info about VIN
 
 ## USAGE
 
-* decoder = VinDecoder::Generic.new('ASDFVIN')
-* decoder.info
-* => [:make => 'Ford', :model => 'Mustang']
+    decoder = VinDecoder::Generic.new('ASDFVIN')
+    decoder.info
+    => [:make => 'Ford', :model => 'Mustang']
 
 ## TODO
 
