@@ -11,4 +11,5 @@ Gem::Specification.new do |s|
     'https://github.com/komba/ruby_vin'
 
   s.add_runtime_dependency("hpricot")
+  s.add_runtime_dependency("rest-client")
 end

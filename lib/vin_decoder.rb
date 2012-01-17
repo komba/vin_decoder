@@ -7,12 +7,11 @@ module VinDecoder
 
   class Generic
     attr_accessor :info
-    URL = "http://www.decodethis.com/"
-    PATH = "Default.aspx?tabid=65&vin="
+    URL = "http://www.decodethis.com/Default.aspx"
 
-    def initialize(vin)
+    def decode(vin)
       hash = {}
-      Hpricot(Net::HTTP.get(URI(URL << PATH << vin))).search('.tab').search('tr')[1..-1].each do |tr|
+      Hpricot(RestClient.get URL, :params => {:tabid => 65, :vin => vin}).search('.tab').search('tr')[1..-1].each do |tr|
         tr.search('td').each_slice(2) do |row|
           k = row.first.inner_html.parameterize.underscore.to_sym
           v = row.last.inner_html.strip.gsub(/&#.{0,}?;/, '') # remove html entity garbage
@@ -22,6 +21,10 @@ module VinDecoder
       @info = hash
     rescue => e
       Logger.new(STDOUT).info "Decoding vin #{vin} was failed. Reason: #{e}"
+    end
+
+    def self.decode(vin)
+      new.decode(vin)
     end
   end
 
